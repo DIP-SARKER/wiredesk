@@ -57,41 +57,33 @@ new class extends Component {
 
                     <x-slot name="content">
                         @auth
-                            <x-dropdown-link :href="route('dashboard')" wire:navigate>
+                            <x-dropdown-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" wire:navigate>
                                 {{ __('Dashboard') }}
                             </x-dropdown-link>
 
                             @if (auth()->user()->is_admin)
-                                <x-dropdown-link :href="route('admin.tickets.index')" wire:navigate>
+                                <x-dropdown-link :href="route('admin.tickets.index')" :active="request()->routeIs('admin.tickets.index')" wire:navigate>
                                     {{ __('All Tickets') }}
                                 </x-dropdown-link>
-
-                                <x-dropdown-link :href="route('admin.tickets.detail')" wire:navigate>
-                                    {{ __('Admin Ticket Details') }}
-                                </x-dropdown-link>
                             @else
-                                <x-dropdown-link :href="route('tickets.index')" wire:navigate>
+                                <x-dropdown-link :href="route('tickets.index')" :active="request()->routeIs('tickets.index')" wire:navigate>
                                     {{ __('My Tickets') }}
                                 </x-dropdown-link>
 
-                                <x-dropdown-link :href="route('tickets.create')" wire:navigate>
+                                <x-dropdown-link :href="route('tickets.create')" :active="request()->routeIs('tickets.create')" wire:navigate>
                                     {{ __('Create Ticket') }}
-                                </x-dropdown-link>
-
-                                <x-dropdown-link :href="route('tickets.detail')" wire:navigate>
-                                    {{ __('Ticket Details') }}
                                 </x-dropdown-link>
                             @endif
 
                             <div class="border-t border-gray-100 my-1"></div>
 
-                            <x-dropdown-link :href="route('profile')" wire:navigate>
+                            <x-dropdown-link :href="route('profile')" :active="request()->routeIs('profile')" wire:navigate>
                                 {{ __('Profile') }}
                             </x-dropdown-link>
 
                             <!-- Logout -->
                             <button wire:click="logout" class="w-full text-start">
-                                <x-dropdown-link>
+                                <x-dropdown-link class="text-red-600 hover:text-red-800">
                                     {{ __('Log Out') }}
                                 </x-dropdown-link>
                             </button>
@@ -118,57 +110,38 @@ new class extends Component {
 
     <!-- Responsive Navigation Menu -->
     <div :class="{ 'block': open, 'hidden': !open }" class="hidden sm:hidden">
-        <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" wire:navigate>
-                {{ __('Dashboard') }}
-            </x-responsive-nav-link>
-        </div>
 
         <!-- Responsive Settings Options -->
-        <div class="pt-4 pb-1 border-t border-gray-200">
-            <div class="px-4">
-                <div class="font-medium text-base text-gray-800" x-data="{{ json_encode(['name' => auth()->user()->name]) }}" x-text="name"
-                    x-on:profile-updated.window="name = $event.detail.name"></div>
-                <div class="font-medium text-sm text-gray-500">{{ auth()->user()->email }}</div>
-            </div>
+        <div class="pt-4 pb-1 border-t border-gray-200 flex flex-col items-center">
 
             <div class="mt-3 space-y-1">
                 @auth
-                    <x-responsive-nav-link :href="route('dashboard')" wire:navigate>
+                    <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" wire:navigate>
                         {{ __('Dashboard') }}
                     </x-responsive-nav-link>
 
                     @if (auth()->user()->is_admin)
-                        <x-responsive-nav-link :href="route('admin.tickets.index')" wire:navigate>
+                        <x-responsive-nav-link :href="route('admin.tickets.index')" :active="request()->routeIs('admin.tickets.index')" wire:navigate>
                             {{ __('All Tickets') }}
                         </x-responsive-nav-link>
-
-
-                        <x-responsive-nav-link :href="route('admin.tickets.detail')" wire:navigate>
-                            {{ __('Admin Ticket Details') }}
-                        </x-responsive-nav-link>
                     @else
-                        <x-responsive-nav-link :href="route('tickets.index')" wire:navigate>
+                        <x-responsive-nav-link :href="route('tickets.index')" :active="request()->routeIs('tickets.index')" wire:navigate>
                             {{ __('My Tickets') }}
                         </x-responsive-nav-link>
 
-                        <x-responsive-nav-link :href="route('tickets.create')" wire:navigate>
+                        <x-responsive-nav-link :href="route('tickets.create')" :active="request()->routeIs('tickets.create')" wire:navigate>
                             {{ __('Create Ticket') }}
-                        </x-responsive-nav-link>
-
-                        <x-responsive-nav-link :href="route('tickets.detail')" wire:navigate>
-                            {{ __('Ticket Details') }}
                         </x-responsive-nav-link>
                     @endif
 
                     <div class="border-t border-gray-200"></div>
 
-                    <x-responsive-nav-link :href="route('profile')" wire:navigate>
+                    <x-responsive-nav-link :href="route('profile')" :active="request()->routeIs('profile')" wire:navigate>
                         {{ __('Profile') }}
                     </x-responsive-nav-link>
                     <!-- Authentication -->
                     <button wire:click="logout" class="w-full text-start">
-                        <x-responsive-nav-link>
+                        <x-responsive-nav-link class="text-red-600 hover:text-red-800">
                             {{ __('Log Out') }}
                         </x-responsive-nav-link>
                     </button>

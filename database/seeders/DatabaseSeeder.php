@@ -29,5 +29,8 @@ class DatabaseSeeder extends Seeder
             'password' => bcrypt('2'),
             'is_admin' => false,
         ]);
+        $this->call([
+            TicketSeeder::class,
+        ]);
     }
 }
